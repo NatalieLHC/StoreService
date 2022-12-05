@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Entity
@@ -22,4 +23,7 @@ public class User {
     private LocalDateTime regDate;
     private String email;
     private boolean active;
+
+//    @OneToMany
+//    private List<Post> posts;
 }

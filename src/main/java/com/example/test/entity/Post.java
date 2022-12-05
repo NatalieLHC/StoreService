@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "postsIdGenerator")
-    @Column(name = "id")
+    @Column(name = "post_id")
     private Integer postId;
     @Column(name = "post_title")
     private String postTitle;
@@ -24,4 +24,5 @@ public class Post {
     private boolean deleted;
     @Column(name = "user_id")
     private Integer userId;
+
 }

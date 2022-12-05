@@ -28,10 +28,10 @@ public class UserServiceImplement implements UserService{
         return userRepository.findById(id).orElseThrow(() -> new NotFoundException("User not found"));
     }
     public List<User> getUserPosts(int id) {
-        if(postRepository.findAllById(id).isEmpty()){
+        if(postRepository.findByUserId(id).isEmpty()){
             throw new NotFoundException("This user has no posts!");
         }
-        return postRepository.findAllById(id);
+        return postRepository.findAllByPostId(id);
     }
     public User update(int id, User user){
         var foundUser = getUserById(id);

@@ -1,11 +1,12 @@
 package com.example.test.controller;
 
 
+import com.example.test.entity.Post;
 import com.example.test.entity.User;
 import com.example.test.entity.UserSearchParams;
+import com.example.test.service.PostService;
 import com.example.test.service.UserService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -16,9 +17,11 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private final PostService postService;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, PostService postService) {
         this.userService = userService;
+        this.postService = postService;
     }
     @GetMapping()
     public List<User> getAll(UserSearchParams userSearchParams) {
@@ -44,6 +47,11 @@ public class UserController {
     public ResponseEntity<User> delete(@PathVariable int id) {
         userService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{id}/posts")
+    public List<Post>getUserPosts(@PathVariable int id){
+        return  postService.getByUserId(id);
     }
 
 }

@@ -7,6 +7,7 @@ import com.example.test.entity.User;
 import com.example.test.entity.UserSearchParams;
 import org.springframework.stereotype.Service;
 
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -19,6 +20,8 @@ public interface PostService {
     Post add(Post post);
 
     Post update(int id, Post post);
+
+    List<Post> getByUserId(int id);
 
     void delete(int id);
 }
