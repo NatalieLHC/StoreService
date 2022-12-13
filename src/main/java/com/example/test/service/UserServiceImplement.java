@@ -27,12 +27,7 @@ public class UserServiceImplement implements UserService{
     public User getUserById(int id){
         return userRepository.findById(id).orElseThrow(() -> new NotFoundException("User not found"));
     }
-    public List<User> getUserPosts(int id) {
-        if(postRepository.findByUserId(id).isEmpty()){
-            throw new NotFoundException("This user has no posts!");
-        }
-        return postRepository.findAllByPostId(id);
-    }
+
     public User update(int id, User user){
         var foundUser = getUserById(id);
         foundUser.setUsername(user.getUsername());

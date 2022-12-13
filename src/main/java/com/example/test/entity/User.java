@@ -24,6 +24,4 @@ public class User {
     private String email;
     private boolean active;
 
-//    @OneToMany
-//    private List<Post> posts;
 }
