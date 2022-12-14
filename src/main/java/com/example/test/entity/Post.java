@@ -1,5 +1,6 @@
 package com.example.test.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -13,16 +14,21 @@ import java.time.LocalDateTime;
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "postsIdGenerator")
-    @Column(name = "post_id")
+    @Column(name = "id", nullable = false)
     private Integer postId;
-    @Column(name = "post_title")
+    @Column(name = "title", nullable = false)
     private String postTitle;
-    @Column(name = "post_date")
+    @Column(name = "create_date", nullable = false)
     private LocalDateTime postDate;
-    @Column(name = "post_content")
+    @Column(name = "content", nullable = false)
     private String postContent;
     private boolean deleted;
-    @Column(name = "user_id")
+    @Column(name = "user_id", nullable = false)
     private Integer userId;
+
+    @ManyToOne
+    @JsonManagedReference
+    @JoinColumn(name = "user_id", referencedColumnName = "id", updatable = false, insertable = false)
+    private User user;
 
 }

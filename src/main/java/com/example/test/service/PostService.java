@@ -21,7 +21,7 @@ public interface PostService {
 
     Post update(int id, Post post);
 
-    List<Post> getByUserId(int id);
+    List<Post> getByUserId(int Userid);
 
     void delete(int id);
 }

@@ -28,6 +28,11 @@ public class UserServiceImplement implements UserService{
         return userRepository.findById(id).orElseThrow(() -> new NotFoundException("User not found"));
     }
 
+    @Override
+    public User getUserByUsername(String username) {
+        return userRepository.findByUsername(username).orElseThrow(() -> new NotFoundException("User not found"));
+    }
+
     public User update(int id, User user){
         var foundUser = getUserById(id);
         foundUser.setUsername(user.getUsername());

@@ -28,8 +28,11 @@ public class UserController {
         return userService.getAll(userSearchParams);
     }
     @GetMapping("/{id}")
-    public User getUserById(@PathVariable int id) {
-        return userService.getUserById(id);
+    public User getUserById(@PathVariable int id) throws InterruptedException {
+        var user = userService.getUserById(id);
+        Thread.sleep(5000);
+        var posts = user.getPosts();
+        return user;
     }
 
     @PostMapping()

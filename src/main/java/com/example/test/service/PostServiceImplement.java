@@ -42,7 +42,7 @@ public class PostServiceImplement implements PostService {
         foundUser.setDeleted(true);
         postRepository.save(foundUser);
     }
-    public List<Post>getByUserId(int id){
-        return postRepository.findByUserId(id);
+    public List<Post>getByUserId(int userId){
+        return postRepository.findByUserId(userId);
     }
 }
