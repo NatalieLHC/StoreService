@@ -31,4 +31,7 @@ public class Post {
     @JoinColumn(name = "user_id", referencedColumnName = "id", updatable = false, insertable = false)
     private User user;
 
+
+
+
 }
