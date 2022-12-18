@@ -2,6 +2,7 @@ package com.example.test.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
@@ -26,7 +27,13 @@ public class User {
     private String email;
     private boolean active;
 
-    @JsonBackReference
+    @JsonManagedReference
     @OneToMany(mappedBy = "user")
     private List<Post> posts;
+
+    @PrePersist
+    public void prePersist(){
+        regDate=LocalDateTime.now();
+        active = true;
+    }
 }

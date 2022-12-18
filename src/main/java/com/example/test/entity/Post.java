@@ -1,5 +1,6 @@
 package com.example.test.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
@@ -18,17 +19,21 @@ public class Post {
     private Integer postId;
     @Column(name = "title", nullable = false)
     private String postTitle;
-    @Column(name = "create_date", nullable = false)
+    @Column(name = "create_date", nullable = false, updatable = false)
     private LocalDateTime postDate;
     @Column(name = "content", nullable = false)
     private String postContent;
     private boolean deleted;
-    @Column(name = "user_id", nullable = false)
+    @Column(name = "user_id", nullable = false,  updatable = false, insertable = false)
     private Integer userId;
 
-    @ManyToOne
-    @JsonManagedReference
-    @JoinColumn(name = "user_id", referencedColumnName = "id", updatable = false, insertable = false)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JsonBackReference
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
+    @PrePersist
+    public void prePersist(){
+        postDate = LocalDateTime.now();
+    }
 }
