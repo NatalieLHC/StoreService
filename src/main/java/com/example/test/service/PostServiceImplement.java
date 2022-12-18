@@ -1,12 +1,8 @@
 package com.example.test.service;
 
 import com.example.test.entity.Post;
-import com.example.test.entity.PostSearchParams;
-import com.example.test.entity.User;
-import com.example.test.entity.UserSearchParams;
 import com.example.test.exception.NotFoundException;
 import com.example.test.repository.PostRepository;
-import com.example.test.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,7 +15,7 @@ public class PostServiceImplement implements PostService {
         this.postRepository = postRepository;
     }
 
-    public List<Post> getAll(PostSearchParams postSearchParams) {
+    public List<Post> getAll() {
         return postRepository.findAll();
     }
     public Post getPostById(int id){
@@ -42,7 +38,7 @@ public class PostServiceImplement implements PostService {
         foundUser.setDeleted(true);
         postRepository.save(foundUser);
     }
-    public List<Post>getByUserId(int userId){
+    public List<Post> getPostsByUserId(int userId){
         return postRepository.findByUserId(userId);
     }
 }

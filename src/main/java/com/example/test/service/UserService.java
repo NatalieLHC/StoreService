@@ -11,7 +11,9 @@ public interface UserService {
 
     User getUserById(int id);
 
-    List<User> getUserPosts(int id);
+    User getByUsername(String username);
+
+//    List<User> getUserPosts(int id);
 
     User add(User user);
 

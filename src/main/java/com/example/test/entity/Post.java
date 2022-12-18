@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Data
-@SequenceGenerator(name = "postsIdGenerator", sequenceName = "posts_post_id_seq",allocationSize = 1)
+@SequenceGenerator(name = "postsIdGenerator", sequenceName = "posts_id_seq",allocationSize = 1)
 @Table(name = "posts")
 public class Post {
     @Id
@@ -30,8 +30,5 @@ public class Post {
     @JsonManagedReference
     @JoinColumn(name = "user_id", referencedColumnName = "id", updatable = false, insertable = false)
     private User user;
-
-
-//test
 
 }

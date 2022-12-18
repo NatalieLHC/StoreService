@@ -12,7 +12,7 @@ import java.util.List;
 
 @Data
 @Entity
-@SequenceGenerator(name = "userIdGenerator", sequenceName = "users_user_id_seq",allocationSize = 1)
+@SequenceGenerator(name = "userIdGenerator", sequenceName = "users_id_seq",allocationSize = 1)
 @Table(name = "users")
 public class User {
     @Id
