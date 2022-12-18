@@ -2,6 +2,8 @@ package com.example.test.service;
 
 
 import com.example.test.entity.Post;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,7 +11,7 @@ import java.util.List;
 @Service
 public interface PostService {
 
-    List<Post> getAll();
+    Page<Post> getAll(Pageable pageable);
 
     Post getPostById(int id);
 

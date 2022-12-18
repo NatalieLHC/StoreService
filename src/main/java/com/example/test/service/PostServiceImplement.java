@@ -3,6 +3,9 @@ package com.example.test.service;
 import com.example.test.entity.Post;
 import com.example.test.exception.NotFoundException;
 import com.example.test.repository.PostRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,8 +20,8 @@ public class PostServiceImplement implements PostService {
         this.userService = userService;
     }
 
-    public List<Post> getAll() {
-        return postRepository.findAll();
+    public Page<Post> getAll(Pageable pageable) {
+        return postRepository.findAll(pageable);
     }
     public Post getPostById(int id){
         return postRepository.findById(id).orElseThrow(() -> new NotFoundException("Post not found"));
