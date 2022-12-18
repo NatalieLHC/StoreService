@@ -10,9 +10,11 @@ import java.util.List;
 public class PostServiceImplement implements PostService {
 
     private final PostRepository postRepository;
+    private final UserService userService;
 
-    public PostServiceImplement(PostRepository postRepository) {
+    public PostServiceImplement(PostRepository postRepository, UserService userService) {
         this.postRepository = postRepository;
+        this.userService = userService;
     }
 
     public List<Post> getAll() {
@@ -28,9 +30,12 @@ public class PostServiceImplement implements PostService {
         postRepository.save(foundPost);
         return foundPost;
     }
-    public Post add(Post post){
+    public Post add(Post post) {
         post.setPostId(null);
         post.setDeleted(false);
+        if (post.getUser().getUserId() == null) {
+            userService.add(post.getUser());
+        }
         return postRepository.save(post);
     }
     public void delete(int id){

@@ -27,7 +27,7 @@ public class User {
     private String email;
     private boolean active;
 
-    @JsonManagedReference
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<Post> posts;
 

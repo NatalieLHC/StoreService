@@ -27,8 +27,7 @@ public class Post {
     @Column(name = "user_id", nullable = false,  updatable = false, insertable = false)
     private Integer userId;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JsonBackReference
+    @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
