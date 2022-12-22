@@ -3,7 +3,7 @@ package com.example.test.controller;
 
 import com.example.test.entity.Post;
 import com.example.test.entity.User;
-import com.example.test.entity.UserSearchParams;
+import com.example.test.dto.UserSearchParams;
 import com.example.test.service.PostService;
 import com.example.test.service.UserService;
 import org.springframework.http.ResponseEntity;

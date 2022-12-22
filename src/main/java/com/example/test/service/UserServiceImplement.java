@@ -1,15 +1,15 @@
 package com.example.test.service;
 
 import com.example.test.entity.User;
-import com.example.test.entity.UserSearchParams;
+import com.example.test.dto.UserSearchParams;
 import com.example.test.exception.NotFoundException;
 import com.example.test.repository.PostRepository;
 import com.example.test.repository.UserRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
-import static org.apache.logging.log4j.ThreadContext.isEmpty;
 
 @Service
 public class UserServiceImplement implements UserService{
@@ -44,6 +44,7 @@ public class UserServiceImplement implements UserService{
         userRepository.save(foundUser);
         return foundUser;
     }
+    @Transactional(propagation = Propagation.REQUIRED)
     public User add(User user){
         user.setUserId(null);
         user.setActive(true);

@@ -1,7 +1,7 @@
 package com.example.test.service;
 
 import com.example.test.entity.User;
-import com.example.test.entity.UserSearchParams;
+import com.example.test.dto.UserSearchParams;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

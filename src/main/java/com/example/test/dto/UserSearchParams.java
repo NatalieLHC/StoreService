@@ -1,4 +1,4 @@
-package com.example.test.entity;
+package com.example.test.dto;
 
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
