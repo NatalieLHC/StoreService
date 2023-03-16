@@ -1,21 +1,28 @@
 package com.example.test.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.Data;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Data
+@Setter
+@Getter
 @Entity
+@NoArgsConstructor
 @SequenceGenerator(name = "userIdGenerator", sequenceName = "users_id_seq",allocationSize = 1)
 @Table(name = "users")
 public class User {
+
+    public User(String username, String password, String email) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+    }
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "userIdGenerator")
@@ -28,8 +35,13 @@ public class User {
     private boolean active;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "user")
-    private List<Post> posts;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_permissions",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "permission_id")
+    )
+    private List<Permission> permissions;
 
     @PrePersist
     public void prePersist(){

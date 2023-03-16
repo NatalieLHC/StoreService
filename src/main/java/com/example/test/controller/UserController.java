@@ -1,27 +1,27 @@
 package com.example.test.controller;
 
 
-import com.example.test.entity.Post;
-import com.example.test.entity.User;
 import com.example.test.dto.UserSearchParams;
-import com.example.test.service.PostService;
+import com.example.test.entity.User;
 import com.example.test.service.UserService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
+@PreAuthorize("hasAuthority('MANAGER')")
 @RestController
 @RequestMapping("/users")
 public class UserController {
 
     private final UserService userService;
-    private final PostService postService;
 
-    public UserController(UserService userService, PostService postService) {
+
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.postService = postService;
+
     }
     @GetMapping()
     public List<User> getAll(UserSearchParams userSearchParams) {
@@ -30,8 +30,6 @@ public class UserController {
     @GetMapping("/{id}")
     public User getUserById(@PathVariable int id) throws InterruptedException {
         var user = userService.getUserById(id);
-        Thread.sleep(5000);
-        var posts = user.getPosts();
         return user;
     }
 
@@ -50,11 +48,6 @@ public class UserController {
     public ResponseEntity<User> delete(@PathVariable int id) {
         userService.delete(id);
         return ResponseEntity.noContent().build();
-    }
-
-    @GetMapping("/{id}/posts")
-    public List<Post>getUserPosts(@PathVariable int id){
-        return  postService.getPostsByUserId(id);
     }
 
 }

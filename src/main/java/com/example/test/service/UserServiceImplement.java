@@ -1,10 +1,10 @@
 package com.example.test.service;
 
-import com.example.test.entity.User;
 import com.example.test.dto.UserSearchParams;
+import com.example.test.entity.User;
 import com.example.test.exception.NotFoundException;
-import com.example.test.repository.PostRepository;
 import com.example.test.repository.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,11 +15,13 @@ import java.util.List;
 public class UserServiceImplement implements UserService{
 
     private final UserRepository userRepository;
-    private final PostRepository postRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImplement(UserRepository userRepository, PostRepository postRepository){
+
+    public UserServiceImplement(UserRepository userRepository, PasswordEncoder passwordEncoder){
         this.userRepository=userRepository;
-        this.postRepository=postRepository;
+
+        this.passwordEncoder = passwordEncoder;
     }
     public List<User> getAll(UserSearchParams userSearchParams){
         return userRepository.findAll();
@@ -30,12 +32,7 @@ public class UserServiceImplement implements UserService{
     public User getByUsername(String username){
         return userRepository.findByUsername(username).orElseThrow(() -> new NotFoundException("Username not found"));
     }
-//    public List<User> getUserPosts(int id) {
-//        if(postRepository.findByUserId(id).isEmpty()){
-//            throw new NotFoundException("This user has no posts!");
-//        }
-////        return postRepository.findAllByPostId(id);
-//    }
+
     public User update(int id, User user){
         var foundUser = getUserById(id);
         foundUser.setUsername(user.getUsername());
@@ -48,6 +45,8 @@ public class UserServiceImplement implements UserService{
     public User add(User user){
         user.setUserId(null);
         user.setActive(true);
+        String encodedPassword=passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
         return userRepository.save(user);
     }
     public void delete(int id){
